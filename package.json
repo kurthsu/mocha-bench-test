@@ -1,0 +1,28 @@
+{
+  "name": "mocha-bench-test",
+  "version": "0.0.1",
+  "description": "A tool for performing API benchmark testing with mocha",
+  "bin": {
+    "bench": "bench.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kurthsu/mocha-bench-test.git"
+  },
+  "keywords": [
+    "mocha",
+    "benchmark"
+  ],
+  "author": "Kurt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kurthsu/mocha-bench-test/issues"
+  },
+  "homepage": "https://github.com/kurthsu/mocha-bench-test#readme",
+  "dependencies": {
+    "yargs": "^11.0.0"
+  }
+}
