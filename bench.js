@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const argv = require('yargs')
-  .usage('bench [options]').help('h')
+  .usage('bench [options] path').help('h')
   .options({
     'g': {
       alias: 'grep',
@@ -12,48 +12,27 @@ const argv = require('yargs')
       describe: 'times for calling each test case',
       default: 1,
       type: 'number'
+    },
+    'v': {
+      alias: 'verbose',
+      describe: 'display test pass result for each run',
+      default: false,
+      type: 'boolean'
     }
   })
   .locale('en').argv;
 
-const spawn = require('child_process').spawn;
-const args = prepareOptions(argv);
-
-function runTests(callback) {
-  const proc = spawn('mocha', args);
-  let resultData = '';
-
-  proc.stdout.on('data', (data) => {
-    resultData += data.toString();
-  });
+module.exports = (async () => {
+  const BenchRunner = require('./lib/benchRunner');
+  const benchRunner = new BenchRunner(prepareOptions(argv), argv.times, argv.verbose);
   
-  proc.stderr.on('data', (data) => {
-    callback(data.toString());
-  });
-  
-  proc.on('exit', () => {
-    callback(null, JSON.parse(resultData).passes);
-  });
-}
-
-for (let i=0; i<argv.times; i++) {
-  runTests((err, result) => {
-    console.log(`Run test #${i+1} completed ...`);
-    if (err) {
-      console.error(err);
-      return;
-    }
-    result.forEach((item) => {
-      console.log(`  ${item.title}: ${item.duration}ms`);
-    });
-  });
-}
+  let results = await benchRunner.run();
+  let benchResult = benchRunner.average(results);
+  benchRunner.printBenchResult(benchResult);
+})();
 
 function prepareOptions(argv) {
   let args = [];
-
-  // default options for mocha
-  args.push('--reporter', 'json');
 
   // pass grep option to mocha
   if (argv.grep) {
@@ -65,9 +44,3 @@ function prepareOptions(argv) {
 
   return args;
 }
-
-// terminate children.
-process.on('SIGINT', () => {
-  proc.kill('SIGINT');
-  proc.kill('SIGTERM');
-});
