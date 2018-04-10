@@ -6,7 +6,7 @@ A tool for performing API benchmark testing with your [Mocha](https://mochajs.or
 mocha-bench-test requires node.js >= 8.
 
 ```sh
-$ npm install --save-dev mocha-bench-test
+$ npm install -g mocha-bench-test
 ```
 
 ## Usage

@@ -1,6 +1,6 @@
 {
   "name": "mocha-bench-test",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tool for performing API benchmark testing with your mocha test suite",
   "bin": {
     "bench": "bench.js"

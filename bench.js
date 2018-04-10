@@ -40,7 +40,12 @@ function prepareOptions(argv) {
   }
 
   // non-hyphenated options
-  args.push(argv._);
+  if (argv._.length === 0) {
+    args.push('tests');
+  }
+  else {
+    args.push(argv._);
+  }
 
   return args;
 }
