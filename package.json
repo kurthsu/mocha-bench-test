@@ -1,6 +1,6 @@
 {
   "name": "mocha-bench-test",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A tool for performing API benchmark testing with your mocha test suite",
   "bin": {
     "bench": "bench.js"
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/kurthsu/mocha-bench-test#readme",
   "dependencies": {
+    "xml2js": "^0.4.19",
     "yargs": "^11.0.0"
   }
 }
